@@ -6,12 +6,7 @@ import (
 )
 
 func main() {
-	imagePaths := []string{
-		"raw_images/image1.jpg",
-		"raw_images/image2.jpg",
-		"raw_images/image3.jpg",
-		"raw_images/image4.jpg",
-	}
+	imagePaths := []string{"image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"}
 	for _, path := range imagePaths {
 		_, err := helpers.LoadImage(path)
 		if err != nil {
