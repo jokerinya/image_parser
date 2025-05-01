@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+const pipeline = "pipeline"
+
 func pipelineImageParsing(imagePaths []string) {
 	fmt.Printf("Images to parse: %d\n", len(imagePaths))
 	imagesChan := loadImages(imagePaths)
@@ -60,7 +62,7 @@ func saveImages(in <-chan Img) int {
 	go func() {
 		count := 0
 		for data := range in {
-			if err := data.SaveToFile("pipeline"); err != nil {
+			if err := data.SaveToFile(pipeline); err != nil {
 				fmt.Println(err)
 				continue
 			}

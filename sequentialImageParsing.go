@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+const sequential = "sequential"
+
 func sequentialImageParsing(imagePaths []string) {
 	fmt.Printf("Images to parse: %d\n", len(imagePaths))
 	out := 0
@@ -17,7 +19,7 @@ func sequentialImageParsing(imagePaths []string) {
 		}
 		data.Resize()
 		data.GrayScale()
-		err = data.SaveToFile("sequential")
+		err = data.SaveToFile(sequential)
 		if err != nil {
 			fmt.Println(err)
 			continue

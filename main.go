@@ -5,23 +5,19 @@ import (
 	"time"
 )
 
+var imagePaths = []string{"image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"}
+
 func main() {
-	imagePaths := []string{"image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"}
-	runSequentialImageParsing(imagePaths) // ~210-220 ms.
+	run(sequentialImageParsing, sequential) // ~210-220 ms.
 	fmt.Println("----------")
-	runAsyncPipelineImageParsing(imagePaths) // ~180-190 ms.
+	run(pipelineImageParsing, pipeline) // ~180-190 ms.
+	fmt.Println("----------")
+	run(fanInFanOutImageParsing, fanInFanOut) // ~70 ms.
 }
 
-func runSequentialImageParsing(imagePaths []string) {
+func run(parser func([]string), parserName string) {
 	start := time.Now()
-	sequentialImageParsing(imagePaths)
+	parser(imagePaths)
 	elapsed := time.Since(start)
-	fmt.Println("sequential elapsed: ", elapsed)
-}
-
-func runAsyncPipelineImageParsing(imagePaths []string) {
-	start := time.Now()
-	pipelineImageParsing(imagePaths)
-	elapsed := time.Since(start)
-	fmt.Println("async elapsed: ", elapsed)
+	fmt.Printf("%s elapsed: %s\n", parserName, elapsed)
 }
