@@ -1,20 +1,17 @@
 package main
 
-import (
-	"fmt"
-	"github.com/jokerinya/image_parser/helpers"
-)
+import "fmt"
 
 func sequentialImageParsing(imagePaths []string) {
 	fmt.Printf("Images to parse: %d\n", len(imagePaths))
 	out := 0
 	for _, path := range imagePaths {
-		img, err := helpers.LoadImage(path)
+		img, err := LoadImage(path)
 		if err != nil {
 			fmt.Println(err)
 			continue
 		}
-		data := &helpers.Img{
+		data := &Img{
 			Data:     img,
 			Filename: path,
 		}

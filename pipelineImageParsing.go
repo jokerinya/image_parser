@@ -1,9 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"github.com/jokerinya/image_parser/helpers"
-)
+import "fmt"
 
 func pipelineImageParsing(imagePaths []string) {
 	fmt.Printf("Images to parse: %d\n", len(imagePaths))
@@ -14,16 +11,16 @@ func pipelineImageParsing(imagePaths []string) {
 	fmt.Printf("Saved images number: %d\n", savedImagesNum)
 }
 
-func loadImages(imagePaths []string) <-chan helpers.Img {
-	out := make(chan helpers.Img)
+func loadImages(imagePaths []string) <-chan Img {
+	out := make(chan Img)
 	go func() {
 		for _, path := range imagePaths {
-			img, err := helpers.LoadImage(path)
+			img, err := LoadImage(path)
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
-			data := &helpers.Img{
+			data := &Img{
 				Filename: path,
 				Data:     img,
 			}
@@ -34,8 +31,8 @@ func loadImages(imagePaths []string) <-chan helpers.Img {
 	return out
 }
 
-func resizeImages(in <-chan helpers.Img) <-chan helpers.Img {
-	out := make(chan helpers.Img)
+func resizeImages(in <-chan Img) <-chan Img {
+	out := make(chan Img)
 	go func() {
 		for data := range in {
 			data.Resize()
@@ -46,8 +43,8 @@ func resizeImages(in <-chan helpers.Img) <-chan helpers.Img {
 	return out
 }
 
-func grayScaleImages(in <-chan helpers.Img) <-chan helpers.Img {
-	out := make(chan helpers.Img)
+func grayScaleImages(in <-chan Img) <-chan Img {
+	out := make(chan Img)
 	go func() {
 		for data := range in {
 			data.GrayScale()
@@ -58,7 +55,7 @@ func grayScaleImages(in <-chan helpers.Img) <-chan helpers.Img {
 	return out
 }
 
-func saveImages(in <-chan helpers.Img) int {
+func saveImages(in <-chan Img) int {
 	resultChan := make(chan int)
 	go func() {
 		count := 0
