@@ -64,8 +64,8 @@ func (img *Img) GrayScale() {
 	img.Data = target
 }
 
-func (img *Img) SaveToFile() error {
-	outputPath := fmt.Sprintf("parsed_images/%s", img.Filename)
+func (img *Img) SaveToFile(method string) error {
+	outputPath := fmt.Sprintf("parsed_images/%s_method_%s", method, img.Filename)
 	file, err := os.Create(outputPath)
 	if err != nil {
 		return err

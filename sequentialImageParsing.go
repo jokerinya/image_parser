@@ -17,7 +17,7 @@ func sequentialImageParsing(imagePaths []string) {
 		}
 		data.Resize()
 		data.GrayScale()
-		err = data.SaveToFile()
+		err = data.SaveToFile("sequential")
 		if err != nil {
 			fmt.Println(err)
 			continue

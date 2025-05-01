@@ -60,7 +60,7 @@ func saveImages(in <-chan Img) int {
 	go func() {
 		count := 0
 		for data := range in {
-			if err := data.SaveToFile(); err != nil {
+			if err := data.SaveToFile("pipeline"); err != nil {
 				fmt.Println(err)
 				continue
 			}
